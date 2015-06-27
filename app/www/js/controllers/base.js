@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal){
+.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books){
   $scope.showText = "Hello World";
 
   // ionic modal
@@ -72,13 +72,5 @@ angular.module('Capablanca.controllers')
   $scope.showText = "Ayyy this is where your books go";
   $scope.data = {id: 0, title: "", description: ""};
 
-  // substitute for database books
-  $scope.books = [
-    {id: 1, title: "ayy", description: "o"},
-    {id: 2, title: "lmao", description: "o"},
-    {id: 3, title: "wat", description: "o"},
-    {id: 4, title: "ye", description: "o"},
-    {id: 5, title: "lol", description: "o"},
-    {id: 6, title: "rofl", description: "o"},
-  ];
+  $scope.books = Books.all();
 });
