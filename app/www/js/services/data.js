@@ -43,9 +43,29 @@ angular.module('Capablanca.services')
       return promise;
     },
 
-    insert: function(){
+    insertBook: function(){
+      // eg: DataService.insertBook(title, description)
+
       var deferred = $q.defer();
       var promise = deferred.promise;
+
+      var query = "INSERT INTO books (title, description) VALUES (?,?)";
+
+      $cordovaSQLite.execute(db, query, [title, description]).then(function(res) {
+        deferred.resolve(res);
+      }, function (err) {
+        deferred.reject(err);
+      });
+
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
     }
   };
 })

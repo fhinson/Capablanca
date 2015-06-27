@@ -51,6 +51,8 @@ angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capab
 
 .run(function($ionicPlatform, DataService) {
   $ionicPlatform.ready(function() {
+    DataService.initialize();
+
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
@@ -59,6 +61,8 @@ angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capab
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
+
+
   });
 });
 
