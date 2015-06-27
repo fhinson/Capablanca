@@ -34,6 +34,13 @@ angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.control
     controller: 'BaseController'
   })
 
+  $stateProvider
+  .state('books', {
+    url: '/books/:id',
+    templateUrl: 'templates/book.html',
+    controller: 'BooksController'
+  })
+
   $ionicAppProvider.identify({
     // The App ID for the server
     app_id: 'b4aa294a',

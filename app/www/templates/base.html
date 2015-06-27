@@ -9,7 +9,7 @@
   <ion-content>
     <h1 ng-bind="showText"></h1>
     <ion-list>
-      <ion-item ng-repeat="book in books">
+      <ion-item ng-repeat="book in books" ng-href="#/books/{{book.id}}">
         {{book.title}}
       </ion-item>
     </ion-list>
