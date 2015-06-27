@@ -14,5 +14,9 @@ angular.module('Capablanca.controllers')
     $scope.newBookModal.show();
   }
 
-  $scope.showText = "Hello World";
+  $scope.closeNewBook = function() {
+    $scope.newBookModal.hide();
+  }
+
+  $scope.showText = "Ayyy this is where your books go";
 })
