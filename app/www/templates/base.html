@@ -8,5 +8,10 @@
   </ion-header-bar>
   <ion-content>
     <h1 ng-bind="showText"></h1>
+    <ion-list>
+      <ion-item ng-repeat="book in books">
+        {{book.title}}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

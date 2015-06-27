@@ -18,5 +18,21 @@ angular.module('Capablanca.controllers')
     $scope.newBookModal.hide();
   }
 
+  $scope.createBook = function() {
+    $scope.books.unshift({title: $scope.data.title, description: $scope.data.description});
+    $scope.closeNewBook();
+  }
+
   $scope.showText = "Ayyy this is where your books go";
+  $scope.data = {title: "", description: ""};
+
+  // substitute for database books
+  $scope.books = [
+    {title: "ayy", description: "o"},
+    {title: "lmao", description: "o"},
+    {title: "wat", description: "o"},
+    {title: "ye", description: "o"},
+    {title: "lol", description: "o"},
+    {title: "rofl", description: "o"},
+  ];
 })
