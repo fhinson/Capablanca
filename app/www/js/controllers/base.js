@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books, PhotosService){
+.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books, PhotosService, DataService){
   $scope.showText = "Hello World";
 
   // ionic modal
@@ -66,6 +66,13 @@ angular.module('Capablanca.controllers')
 
   $scope.createBook = function() {
     $scope.books.unshift({title: $scope.data.title, description: $scope.data.description});
+    DataService.insertBook($scope.data.title, $scope.data.description)
+    .success(function(){
+      console.log("successfully inserted");
+    })
+    .error(function(err){
+      console.log(err);
+    });
     $scope.closeNewBook();
   }
 

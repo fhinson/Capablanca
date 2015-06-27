@@ -43,8 +43,55 @@ angular.module('Capablanca.services')
       return promise;
     },
 
-    insertBook: function(){
-      // eg: DataService.insertBook(title, description)
+    getBook: function(id){
+      // example usage:
+
+      // get all books
+      // DataService.getBook()
+      // .success(function(data){
+      //   console.log(data);
+      // });
+
+      // get specific book
+      // DataService.getBook(3)
+      // .success(function(data){
+      //   console.log(data);
+      // });
+
+
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+      var query;
+
+      if (typeof id === "undefined"){
+        query = "SELECT * FROM books";
+      }
+      else if(typeof id === "number"){
+        query = "SELECT * FROM BOOKS where id = " + id;
+      }
+      else{
+        deferred.reject("Invalid id format");
+      }
+
+      $cordovaSQLite.execute(db, query, []).then(function(res) {
+        deferred.resolve(res);
+      }, function(err){
+        deferred.reject(err);
+      });
+
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
+    },
+
+    insertBook: function(title, description){
+      // example usage: DataService.insertBook(title, description)
 
       var deferred = $q.defer();
       var promise = deferred.promise;
@@ -67,5 +114,6 @@ angular.module('Capablanca.services')
       }
       return promise;
     }
+
   };
 })
