@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "Capablanca",
   "version": "1.0.0",
   "description": "app: An Ionic project",
   "dependencies": {
@@ -22,7 +22,7 @@
     "com.ionic.keyboard"
   ],
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "ios",
+    "android"
   ]
 }
