@@ -5,6 +5,16 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic'])
 
+.config(['$ionicAppProvider', function($ionicAppProvider) {
+  // Identify app
+  $ionicAppProvider.identify({
+    // The App ID for the server
+    app_id: 'b4aa294a',
+    // The API key all services will use for this app
+    api_key: 'c9f45eace0df045a65ccc4ad905658ff8f99a13949e3b966'
+  });
+}])
+
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
