@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books){
+.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books, PhotosService){
   $scope.showText = "Hello World";
 
   // ionic modal

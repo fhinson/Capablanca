@@ -21,7 +21,7 @@ angular.module('ionic.utils', [])
   }
 }]);
 
-angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.controllers', 'Capablanca.services',
+angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capablanca.controllers', 'Capablanca.services',
   'Capablanca.filters', 'Capablanca.directives'])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicAppProvider){
