@@ -41,6 +41,11 @@ angular.module('Capablanca.services')
         return promise;
       }
       return promise;
+    },
+
+    insert: function(){
+      var deferred = $q.defer();
+      var promise = deferred.promise;
     }
   };
 })

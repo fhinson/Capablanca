@@ -21,7 +21,7 @@ angular.module('ionic.utils', [])
   }
 }]);
 
-angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.controllers', 'Capablanca.services',
+angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capablanca.controllers', 'Capablanca.services',
   'Capablanca.filters', 'Capablanca.directives'])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicAppProvider){
@@ -49,7 +49,7 @@ angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.control
   });
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, DataService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
