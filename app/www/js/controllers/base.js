@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, PhotosService){
+.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal){
   $scope.showText = "Hello World";
 
   // ionic modal
@@ -63,4 +63,21 @@ angular.module('Capablanca.controllers')
       }
     });
   }
+
+  $scope.createBook = function() {
+    $scope.books.unshift({title: $scope.data.title, description: $scope.data.description});
+    $scope.closeNewBook();
+  }
+
+  $scope.data = {title: "", description: ""};
+
+  // substitute for database books
+  $scope.books = [
+    {title: "ayy", description: "o"},
+    {title: "lmao", description: "o"},
+    {title: "wat", description: "o"},
+    {title: "ye", description: "o"},
+    {title: "lol", description: "o"},
+    {title: "rofl", description: "o"},
+  ];
 });

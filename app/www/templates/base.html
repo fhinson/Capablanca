@@ -9,5 +9,10 @@
   <ion-content>
     <h1 ng-bind="showText"></h1>
     <button ng-click="uploadPhoto()">Upload Photo</button>
+    <ion-list>
+      <ion-item ng-repeat="book in books">
+        {{book.title}}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

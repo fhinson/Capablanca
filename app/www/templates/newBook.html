@@ -10,10 +10,10 @@
   <ion-content>
     <form>
       <ion-item class="item item-input">
-        <input type="text" placeholder="Title">
+        <input type="text" placeholder="Title" ng-model="data.title">
       </ion-item>
       <ion-item class="item item-input">
-        <input type="text" placeholder="Description">
+        <input type="text" placeholder="Description" ng-model="data.description">
       </ion-item>
       <button class="button button-positive" type="submit" ng-click="createBook()">
         Create Book
