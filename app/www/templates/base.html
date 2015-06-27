@@ -8,7 +8,6 @@
   </ion-header-bar>
   <ion-content>
     <h1 ng-bind="showText"></h1>
-    <button ng-click="uploadPhoto()">Upload Photo</button>
     <ion-list>
       <ion-item ng-repeat="book in books" ng-href="#/books/{{book.id}}">
         {{book.title}}
