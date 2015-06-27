@@ -1,7 +1,23 @@
 angular.module('Capablanca.controllers')
 
-.controller('BaseController', function($scope, $ionicActionSheet, PhotosService){
+.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, PhotosService){
   $scope.showText = "Hello World";
+
+  // ionic modal
+  $ionicModal.fromTemplateUrl('templates/newBook.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.newBookModal = modal;
+  });
+
+  $scope.newBook = function() {
+    $scope.newBookModal.show();
+  }
+
+  $scope.closeNewBook = function() {
+    $scope.newBookModal.hide();
+  }
 
   $scope.uploadPhoto = function(){
     var processPhoto = function(data, dataType){
@@ -47,4 +63,4 @@ angular.module('Capablanca.controllers')
       }
     });
   }
-})
+});
