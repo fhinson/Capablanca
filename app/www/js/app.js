@@ -42,7 +42,7 @@ angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.control
   });
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, DataService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
