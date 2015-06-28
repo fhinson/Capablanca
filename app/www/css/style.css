@@ -1,1 +1,181 @@
-/* Empty. Add your own CSS if you like */
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndLight.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndLight.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLight.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLight.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLight.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLight.svg#GothamRndLight') format('svg');
+    font-weight: 300;
+    font-size: normal;
+
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndLightIta.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndLightIta.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLightIta.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLightIta.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLightIta.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndLightIta.svg#GothamRndLightIta') format('svg');
+    font-weight: 300;
+    font-size: normal;
+    font-style: italic;
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBook.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBook.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBook.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBook.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBook.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBook.svg#GothamRndBook') format('svg');
+    font-weight: 400;
+    font-size: normal;
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBookIta.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBookIta.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBookIta.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBookIta.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBookIta.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBookIta.svg#GothamRndBookIta') format('svg');
+    font-weight: 400;
+    font-size: normal;
+    font-style: italic;
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndMedium.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndMedium.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedium.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedium.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedium.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedium.svg#GothamRndMedium') format('svg');
+    font-weight: 600;
+    font-size: normal;
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndMedIta.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndMedIta.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedIta.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedIta.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedIta.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndMedIta.svg#GothamRndMedIta') format('svg');
+    font-weight: 600;
+    font-size: normal;
+    font-style: italic;
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBold.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBold.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBold.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBold.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBold.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBold.svg#GothamRndBold') format('svg');
+    font-weight: bold;
+    font-size: normal;
+}
+
+@font-face{
+  font-family: 'Gotham Rounded';
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBoldIta.eot');
+    src: url('../lib/ionic/fonts/GothamRounded/GothamRndBoldIta.eot') format('embedded-opentype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBoldIta.woff2') format('woff2'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBoldIta.woff') format('woff'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBoldIta.ttf') format('truetype'),
+         url('../lib/ionic/fonts/GothamRounded/GothamRndBoldIta.svg#GothamRndBoldIta') format('svg');
+    font-weight: bold;
+    font-size: normal;
+    font-style: italic;
+}
+
+* {
+  font-family: "Gotham Rounded" !important;
+  -webkit-font-smoothing: antialiased !important;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.004) !important;
+}
+
+.page-title{
+  font-size:16px!important;
+  font-weight:bold!important;
+  color:#415A77!important;
+}
+
+.book-row{
+ -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin-top:10px;
+}
+
+.book-card{
+  box-shadow: none!important;
+  border:3px solid rgba(0,0,0,0.07  );
+  text-align: center;
+  border-radius:5px;
+  margin:0px;
+  height:150px;
+  line-height:110px;
+}
+
+.book-card .item{
+  font-size:16px;
+  font-weight:600;
+  color:rgba(0,0,0,0.55);
+}
+
+.base-header{
+  background-image:none!important;
+}
+
+.color-border{
+  height:3px;
+  width:100%;
+}
+
+.section-label{
+  font-size:13px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  margin-top:20px!important;
+  margin-left:10px;
+  color:#5f81a8;
+}
+
+.larger{
+}
+
+.c-plus{
+  color:#778DA9!important;
+  font-size:12px!important;
+  border:none!important;
+  background:none!important;
+  margin-top:-2px;
+  opacity:1!important;
+}
+
+.submit-button{
+  margin-top:20px;
+  width:100%;
+  border:none;
+  background:#778da9;
+  color:#fff;
+  font-weight:bold;
+  font-size:14px;
+  text-transform: uppercase;
+}
+
+.submit-button:active{
+  background:#9babc0;
+  color:#fff;
+}

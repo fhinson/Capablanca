@@ -1,14 +1,20 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $jrCrop, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
+  $scope.showLoadingSpinner = false;
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
+    console.log($scope.book);
     $scope.pages = $scope.book.pages;
-    console.log($scope.pages);
+  })
+  .error(function(err){
+    console.log(err);
   });
 
   function postImageData(data){
+    $scope.pageModal.show();
+    $scope.showLoadingSpinner = true;
     $http({
       method: 'POST',
       url: 'http://c413542d.ngrok.io/analyze',
@@ -23,6 +29,7 @@ angular.module('Capablanca.controllers')
       }
     })
     .success(function(data){
+      $scope.showLoadingSpinner = false;
       $scope.bookData = data;
       $scope.createPage($scope.bookData);
     })
@@ -32,13 +39,30 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createPage = function(data) {
-    DataService.insertPage(data, $stateParams.id)
+    DataService.insertPage(JSON.stringify(data), $stateParams.id)
     .success(function(data){
       console.log("inserted" + data);
     })
     .error(function(err) {
       console.log("error " + err);
     });
+  }
+
+  // ionic modal
+  $ionicModal.fromTemplateUrl('templates/page.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.pageModal = modal;
+  });
+
+  $scope.closePage= function() {
+    $scope.pageModal.hide();
+  }
+
+  $scope.selectPage = function(page){
+    $scope.selectedPage = page;
+    $scope.pageModal.show();
   }
 
   $scope.uploadPhoto = function(){

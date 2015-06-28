@@ -1,17 +1,22 @@
 <ion-view view-title="Base" can-swipe-back="false">
-  <ion-header-bar>
-    <div class="new-book" ng-click="newBook()">
-      <button class="button button-positive">
-        New Book
-      </button>
+  <ion-header-bar class="base-header">
+    <h1 class="title page-title">capablanca</h1>
+    <div class="buttons" ng-click="newBook()">
+      <button class="button button-small icon-right ion-plus-round c-plus" disabled></button>
     </div>
   </ion-header-bar>
-  <ion-content>
-    <h1 ng-bind="showText"></h1>
-    <ion-list>
-      <ion-item ng-repeat="book in books.slice().reverse()" ng-href="#/books/{{book.id}}">
-        {{book.title}}
-      </ion-item>
-    </ion-list>
+  <ion-content scroll="false">
+    <img src="img/border.png" class="color-border"/>
+    <h1 class="section-label">Library</h1>
+    <div class="row book-row">
+      <div class="col col-50" ng-repeat="book in books.slice().reverse()">
+        <div ng-click="goto(book.id)">
+          <div class="card book-card">
+            <div class="item item-text-wrap" ng-bind="book.title">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </ion-content>
 </ion-view>

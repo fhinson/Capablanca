@@ -58,6 +58,20 @@ angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'jrCro
     .error(function(err){
       console.log(err);
     })
+
+    // if(ionic.Platform.isAndroid() == true){
+    //   window.AndroidFullScreen.immersiveMode(successFunction, errorFunction);
+
+    //   function successFunction() {
+    //     // console.log("It worked!");
+    //   }
+
+    //   function errorFunction(error) {
+    //     console.log(error);
+    //   }
+    // }
+
+    // ionic.Platform.fullScreen();
   });
 });
 
