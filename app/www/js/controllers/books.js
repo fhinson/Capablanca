@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $ionicModal, $ionicPopup, $jrCrop, $http, PhotosService, DataService, BooksService){
   $scope.showLoadingSpinner = false;
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
@@ -15,10 +15,11 @@ angular.module('Capablanca.controllers')
   function postImageData(data){
     $scope.pageModal.show();
     $scope.showLoadingSpinner = true;
+    $scope.showPopup();
     $http({
       method: 'POST',
       url: 'http://c413542d.ngrok.io/analyze',
-      data: {image:data},
+      data: {image:data, fast:true},
       // headers: {'Content-Type': 'multipart/form-data'},
       headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       transformRequest: function(obj) {
@@ -30,8 +31,9 @@ angular.module('Capablanca.controllers')
     })
     .success(function(data){
       $scope.showLoadingSpinner = false;
-      $scope.bookData = data;
-      $scope.createPage($scope.bookData);
+      $scope.popup.close();
+      $scope.pageData = data;
+      $scope.createPage($scope.pageData);
     })
     .error(function(data, status, headers, config){
       console.log(data);
@@ -61,7 +63,7 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.selectPage = function(page){
-    $scope.selectedPage = page;
+    $scope.pageData = page.data;
     $scope.pageModal.show();
   }
 
@@ -117,4 +119,18 @@ angular.module('Capablanca.controllers')
       }
     });
   }
+
+  $scope.showPopup = function() {
+    $scope.data = {}
+    // An elaborate, custom popup
+    $scope.popup = $ionicPopup.show({
+      template: '<ion-spinner class="spinner-energized c-spinner" ng-show="showLoadingSpinner"></ion-spinner>',
+      title: 'Processing Image...',
+      subTitle: '',
+      scope: $scope
+    });
+    $scope.popup.then(function(res) {
+      console.log('Tapped!', res);
+    });
+  };
 })
