@@ -4,8 +4,6 @@ angular.module('Capablanca.controllers')
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
-    console.log($scope.book);
-
   });
 
   function postImageData(data){

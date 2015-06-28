@@ -19,7 +19,7 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createBook = function() {
-    $scope.books << {title: $scope.data.title, description: $scope.data.description};
+    $scope.books.unshift({title: $scope.data.title, description: $scope.data.description});
     DataService.insertBook($scope.data.title, $scope.data.description)
     .success(function(){
       console.log("successfully inserted");
