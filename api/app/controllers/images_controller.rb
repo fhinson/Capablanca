@@ -8,8 +8,16 @@ class ImagesController < ApplicationController
   # parameters:
   #  image: base64 string
   #  image_file: string (needed if no image supplied)
-  # resposne
+  # response:
+  #  text: string
+  #  summary: array of strings
+  #  confidence: float (0 - 100)
+  #  topics: array of strings
+  #  keywords: array of strings
+  #  sentiment: string (positive > .25, negative < -.25, neutral in between)
+  #  sentiment_score: float ( ^^ )
   def analyze
+    # check that image parameter present
     if !params[:image] && !params[:image_file]
       render json: "Image Required", status: 404
       return
