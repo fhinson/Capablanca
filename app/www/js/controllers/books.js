@@ -4,6 +4,9 @@ angular.module('Capablanca.controllers')
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
+    $scope.pages = $scope.book.pages;
+    $scope.createPage({title: "yayo"});
+    $scope.createPage({title: "ohai"});
   });
 
   function postImageData(data){
@@ -19,6 +22,11 @@ angular.module('Capablanca.controllers')
     .error(function(err){
       console.log(err);
     });
+  }
+
+  $scope.createPage = function(data) {
+    DataService.insertPage(data, $stateParams.id);
+    console.log("inserted");
   }
 
   $scope.uploadPhoto = function(){
