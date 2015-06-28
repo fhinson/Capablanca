@@ -1,17 +1,27 @@
 <ion-view view-title="{{book.title}}">
-  <ion-nav-bar>
-    <ion-nav-back-button>
-    </ion-nav-back-button>
-  </ion-nav-bar>
-  {{book.title}}
+  <ion-header-bar id="new-book-header">
+    <div class="close-settings buttons">
+      <button class="button ion-chevron-left larger c-plus" disabled></button>
+    </div>
+    <h1 class="title page-title">book</h1>
+    <div class="close-settings buttons" ng-click="uploadPhoto()">
+      <button class="button button-small icon-right ion-camera c-plus" disabled></button>
+    </div>
+  </ion-header-bar>
   <ion-content>
-    <button ng-click="uploadPhoto()">Upload Photo</button>
-    {{book.description}}
-    <ion-list>
-      <ion-item ng-repeat="page in pages.slice().reverse()">
-        {{page.data.title}}
-      </ion-item>
-    </ion-list>
+    <h1 class="section-label">Description</h1>
+    <p ng-bind="book.description"></p>
+    <h1 class="section-label">Pages</h1>
+    <div class="row book-row">
+      <div class="col col-50" ng-repeat="page in pages.slice().reverse()">
+        <div ng-click="">
+          <div class="card book-card">
+            <div class="item item-text-wrap" ng-bind="page.data.title">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <h4>Keywords</h4>
     <p ng-repeat="keyword in bookData.keywords" ng-bind="keyword"></p>
     <h4>Summary</h4>

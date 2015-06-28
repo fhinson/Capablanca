@@ -4,9 +4,11 @@ angular.module('Capablanca.controllers')
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
+    console.log($scope.book);
     $scope.pages = $scope.book.pages;
-    $scope.createPage({title: "yayo"});
-    $scope.createPage({title: "ohai"});
+  })
+  .error(function(err){
+    console.log(err);
   });
 
   function postImageData(data){

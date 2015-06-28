@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, BooksService, PhotosService, DataService){
+.controller('BaseController', function($scope, $state, $ionicActionSheet, $ionicModal, BooksService, PhotosService, DataService){
 
   // ionic modal
   $ionicModal.fromTemplateUrl('templates/newBook.html', {
@@ -33,9 +33,12 @@ angular.module('Capablanca.controllers')
     $scope.closeNewBook();
   }
 
-  $scope.showText = "Ayyy this is where your books go";
   $scope.data = {title: "", description: ""};
   $scope.books = [];
+
+  $scope.goto = function(id){
+    $state.go("books", {id: id});
+  }
 
 
   $scope.$on('databaseInitialized', function(event, args) {

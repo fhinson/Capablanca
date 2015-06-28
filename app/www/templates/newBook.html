@@ -1,21 +1,19 @@
 <ion-modal-view>
   <ion-header-bar id="new-book-header">
-    <h1>New Book</h1>
-    <div class="close-settings" ng-click="closeNewBook()">
-      <button class="button button-positive">
-        Cancel
-      </button>
+    <h1 class="title page-title">New Book</h1>
+    <div class="close-settings buttons" ng-click="closeNewBook()">
+      <button class="button button-small icon-right ion-close-round c-plus" disabled></button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <form>
+    <form class="list list-inset">
       <ion-item class="item item-input">
-        <input type="text" placeholder="Title" ng-model="data.title">
+        <input type="text" placeholder="Title" ng-model="data.title"/>
       </ion-item>
       <ion-item class="item item-input">
-        <input type="text" placeholder="Description" ng-model="data.description">
+        <textarea type="text" placeholder="Description" ng-model="data.description"/>
       </ion-item>
-      <button class="button button-positive" type="submit" ng-click="createBook()">
+      <button class="button submit-button" type="submit" ng-click="createBook()">
         Create Book
       </button>
     </form>
