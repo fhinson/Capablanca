@@ -7,6 +7,9 @@ angular.module('Capablanca.controllers')
     $scope.book = data;
     console.log($scope.book);
     $scope.pages = $scope.book.pages;
+    // for (var i = 0; i < $scope.pages.length; i++) {
+    //   $scope.pages[i].data = JSON.parse($scope.pages[i].data);
+    // }
   })
   .error(function(err){
     console.log(err);
@@ -38,6 +41,10 @@ angular.module('Capablanca.controllers')
     .error(function(data, status, headers, config){
       console.log(data);
     });
+  }
+
+  $scope.customParseJSON = function(data) {
+    return JSON.parse(data).keywords[0];
   }
 
   $scope.captureAudio = function() {

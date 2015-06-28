@@ -16,7 +16,7 @@
       <div class="col col-50" ng-repeat="page in pages.slice().reverse()">
         <div ng-click="selectPage(page)">
           <div class="card book-card">
-            <div class="item item-text-wrap" ng-bind="page.data.title">
+            <div class="item item-text-wrap" ng-bind="customParseJSON(page.data)">
             </div>
           </div>
         </div>
