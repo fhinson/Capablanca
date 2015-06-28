@@ -21,7 +21,7 @@ angular.module('Capablanca.services')
       query = "CREATE TABLE IF NOT EXISTS books (id integer primary key, title string, description text, timestamp date default (datetime('now','localtime')))";
       $cordovaSQLite.execute(db, query)
       .then(function(res){
-        query = "CREATE TABLE IF NOT EXISTS pages (id integer primary key, data text, book integer, FOREIGN KEY(book) REFERENCES book(id), timestamp date default (datetime('now','localtime')))";
+        query = "CREATE TABLE IF NOT EXISTS pages (id integer primary key, data text, book integer, timestamp date default (datetime('now','localtime')), foreign key(book) references book(id))";
         $cordovaSQLite.execute(db, query)
         .then(function(res){
           deferred.resolve(res);

@@ -54,7 +54,10 @@ angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capab
     DataService.initialize()
     .success(function(data){
       $rootScope.$broadcast('databaseInitialized', {status: "success"});
-    });
+    })
+    .error(function(err){
+      console.log(err);
+    })
   });
 });
 
