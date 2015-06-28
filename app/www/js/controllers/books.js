@@ -5,6 +5,7 @@ angular.module('Capablanca.controllers')
   .success(function(data) {
     $scope.book = data;
     $scope.pages = $scope.book.pages;
+    console.log($scope.pages);
   });
 
   function postImageData(data){
@@ -22,8 +23,8 @@ angular.module('Capablanca.controllers')
       }
     })
     .success(function(data){
-      console.log(data);
       $scope.bookData = data;
+      $scope.createPage($scope.bookData);
     })
     .error(function(data, status, headers, config){
       console.log(data);
@@ -31,8 +32,13 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createPage = function(data) {
-    DataService.insertPage(data, $stateParams.id);
-    console.log("inserted");
+    DataService.insertPage(data, $stateParams.id)
+    .success(function(data){
+      console.log("inserted" + data);
+    })
+    .error(function(err) {
+      console.log("error " + err);
+    });
   }
 
   $scope.uploadPhoto = function(){
