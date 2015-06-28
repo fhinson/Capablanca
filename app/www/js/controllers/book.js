@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $jrCrop, $http, PhotosService, DataService, BooksService){
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
@@ -21,7 +21,8 @@ angular.module('Capablanca.controllers')
       }
     })
     .success(function(data){
-      console.log(data);
+      console.log(data.text);
+      $scope.showData = data.text;
     })
     .error(function(data, status, headers, config){
       console.log(data);
@@ -38,6 +39,14 @@ angular.module('Capablanca.controllers')
       }
       else if(dataType == "base64"){
         postImageData(data);
+        // var image = new Image();
+        // image.src = "data:image/jpeg;base64," + data;
+        // $jrCrop.crop({
+        //     url: image,
+        //     width: 800,
+        //     height: 800,
+        //     title: 'Move and Scale'
+        // });
       }
     }
 
