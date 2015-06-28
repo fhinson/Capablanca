@@ -98,8 +98,7 @@ angular.module('Capablanca.services')
             pages: pageData
           });
         }
-        console.log(bookData);
-        deferred.resolve(bookData);
+        deferred.resolve(bookData.length > 1 ? bookData : bookData[0]);
       }, function(err){
         deferred.reject(err);
       });
@@ -113,6 +112,10 @@ angular.module('Capablanca.services')
         return promise;
       }
       return promise;
+    },
+
+    getBooks: function(){
+      return this.getBook();
     },
 
     insertBook: function(title, description){
