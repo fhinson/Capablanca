@@ -13,11 +13,11 @@
   </ion-header-bar>
   <ion-content>
     <h1 class="section-label">Description</h1>
-    <p ng-bind="book.description"></p>
+    <p class='pfix' ng-bind="book.description"></p>
     <h1 class="section-label">Pages</h1>
     <div class="row book-row">
       <div class="col col-50" ng-repeat="page in pages.slice().reverse()">
-        <div ng-click="selectPage()">
+        <div ng-click="selectPage(page)">
           <div class="card book-card">
             <div class="item item-text-wrap" ng-bind="page.data.title">
             </div>

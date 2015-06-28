@@ -79,6 +79,7 @@ class ImagesController < ApplicationController
     # create a summary with OTS
     summarizer = OTS.parse(text, language: abbrev(language, 2))
     summary = summarizer.summarize(percent: 25).map{|el| el[:sentence]}
+      .select{|s| s != nil }
 
     # perform sentiment analysis
     analyzer = Sentimental.new
@@ -162,7 +163,8 @@ class ImagesController < ApplicationController
     cvmat = OpenCV::CvMat.load(img)
     cvmat = cvmat.BGR2GRAY
     canny = cvmat.canny(100,200)
-    contour = canny.find_contours(:mode => OpenCV::CV_RETR_LIST, :method => OpenCV::CV_CHAIN_APPROX_SIMPLE)
+    contour = canny.find_contours(mode: OpenCV::CV_RETR_LIST,
+      method: OpenCV::CV_CHAIN_APPROX_SIMPLE)
 
     while contour
       # No "holes" please (aka. internal contours)
@@ -183,7 +185,7 @@ class ImagesController < ApplicationController
         puts "that contour is #{contour.arc_length} pixels long "
 
         # Draw that bounding rectangle
-        cvmat.rectangle! box.top_left, box.bottom_right, :color => OpenCV::CvColor::Black
+        cvmat.rectangle! box.top_left, box.bottom_right, color: OpenCV::CvColor::Black
 
         # You can also detect the "minimal rectangle" which has an angle, width, height and center coordinates
         # and is not neccessarily horizonally or vertically aligned.

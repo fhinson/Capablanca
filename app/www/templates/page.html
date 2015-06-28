@@ -6,17 +6,16 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <ion-spinner class="spinner-energized" ng-show="showLoadingSpinner"></ion-spinner>
     <h1 ng-bind="selectPage.title"></h1>
-    <h4>Keywords</h4>
-    <p ng-repeat="keyword in bookData.keywords" ng-bind="keyword"></p>
-    <h4>Summary</h4>
-    <p ng-bind="bookData.summary[0].sentence"></p>
-    <h4>Text</h4>
-    <p ng-bind="bookData.text"></p>
-    <h4>Sentiment</h4>
-    <p ng-bind="bookData.sentiment"></p>
-    <h4>Sentiment Score</h4>
-    <p ng-bind="bookData.sentiment_score"></p>
+    <h4 class="section-label">Keywords</h4>
+    <p class="pfix" ng-repeat="keyword in pageData.keywords" ng-bind="'— ' + keyword"></p>
+    <h4 class="section-label">Summary</h4>
+    <p class="pfix" ng-repeat="sentence in pageData.summary" ng-bind="sentence"></p>
+    <h4 class="section-label">Text</h4>
+    <p class="pfix" ng-bind="pageData.text"></p>
+    <h4 class="section-label">Sentiment</h4>
+    <p class="pfix" ng-bind="pageData.sentiment"></p>
+    <h4 class="section-label">Sentiment Score</h4>
+    <p class="pfix" ng-bind="pageData.sentiment_score"></p>
   </ion-content>
 </ion-modal-view>
