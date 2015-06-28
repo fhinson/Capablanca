@@ -13,14 +13,21 @@ angular.module('Capablanca.controllers')
     $http({
       method: 'POST',
       url: 'http://c413542d.ngrok.io/analyze',
-      data: data,
-      headers: {'Content-Type': 'multipart/form-data'}
+      data: {image:data},
+      // headers: {'Content-Type': 'multipart/form-data'},
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      }
     })
     .success(function(data){
       console.log(data);
     })
-    .error(function(err){
-      console.log(err);
+    .error(function(data, status, headers, config){
+      console.log(data);
     });
   }
 
