@@ -31,7 +31,8 @@
     {
       "locator": "https://github.com/litehelpers/Cordova-sqlite-storage.git",
       "id": "io.litehelpers.cordova.sqlite"
-    }
+    },
+    "cordova-plugin-media-capture"
   ],
   "cordovaPlatforms": [
     "ios"

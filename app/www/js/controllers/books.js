@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $cordovaCapture, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
   $scope.showLoadingSpinner = false;
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
@@ -35,6 +35,17 @@ angular.module('Capablanca.controllers')
     })
     .error(function(data, status, headers, config){
       console.log(data);
+    });
+  }
+
+  $scope.captureAudio = function() {
+    var options = { limit: 1, duration: 10 };
+
+    $cordovaCapture.captureAudio(options).then(function(audioData) {
+      // Success! Audio data is here
+      console.log(audioData);
+    }, function(err) {
+      // An error occurred. Show a message to the user
     });
   }
 
