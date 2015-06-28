@@ -19,7 +19,7 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createBook = function() {
-    if ($scope.books)
+    if ($scope.books && $scope.books.length > 0)
       $scope.books.unshift({title: $scope.data.title, description: $scope.data.description});
     else
       $scope.books = [{title: $scope.data.title, description: $scope.data.description}];
