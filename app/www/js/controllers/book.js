@@ -11,9 +11,15 @@ angular.module('Capablanca.controllers')
   function postImageData(data){
     $http({
       method: 'POST',
-      url: 'endpoint.com/analyze',
+      url: 'http://c413542d.ngrok.io/analyze',
       data: data,
       headers: {'Content-Type': 'multipart/form-data'}
+    })
+    .success(function(data){
+      console.log(data);
+    })
+    .error(function(err){
+      console.log(err);
     });
   }
 
