@@ -19,6 +19,7 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createBook = function() {
+    $scope.books.push({title: $scope.data.title, description: $scope.data.description});
     DataService.insertBook($scope.data.title, $scope.data.description)
     .success(function(){
       console.log("successfully inserted");
@@ -31,16 +32,10 @@ angular.module('Capablanca.controllers')
 
   $scope.showText = "Ayyy this is where your books go";
   $scope.data = {title: "", description: ""};
+  $scope.books = [];
 
-  $scope.books = BooksService.all();
 
   $scope.$on('databaseInitialized', function(event, args) {
-    DataService.getBook()
-    .success(function(data){
-      console.log(data);
-    })
-    .error(function(err){
-      console.log(err);
-    })
+    $scope.books = BooksService.all();
   });
 });
