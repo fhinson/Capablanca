@@ -80,7 +80,7 @@ angular.module('Capablanca.services')
 
           var pageData = [];
           $cordovaSQLite.execute(db, query, []).then(function(resTwo) {
-            for(var j = 0; i < resTwo.rows.length; j++){
+            for(var j = 0; i < resTwo.rows.length-1; j++){
               pageData.push({
                 id: resTwo.rows.item(j).id,
                 data: resTwo.rows.item(j).data,
@@ -127,6 +127,7 @@ angular.module('Capablanca.services')
       var query = "INSERT INTO books (title, description) VALUES (?,?)";
 
       $cordovaSQLite.execute(db, query, [title, description]).then(function(res) {
+        console.log(res);
         deferred.resolve(res);
       }, function (err) {
         deferred.reject(err);

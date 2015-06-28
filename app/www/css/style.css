@@ -155,6 +155,10 @@
 .larger{
 }
 
+.pfix{
+  margin-left:10px;
+}
+
 .c-plus{
   color:#778DA9!important;
   font-size:12px!important;
@@ -178,4 +182,15 @@
 .submit-button:active{
   background:#9babc0;
   color:#fff;
+}
+
+.c-spinner{
+  margin:0px auto!important;
+  display:block!important;
+  text-align: center!important;
+  color:#5f81a8!important;
+}
+
+.c-spinner svg{
+  stroke:#5f81a8!important;
 }
