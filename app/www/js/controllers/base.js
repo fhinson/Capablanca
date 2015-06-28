@@ -26,6 +26,7 @@ angular.module('Capablanca.controllers')
     DataService.insertBook($scope.data.title, $scope.data.description)
     .success(function(){
       console.log("successfully inserted");
+      console.log($scope.books);
     })
     .error(function(err){
       console.log(err);

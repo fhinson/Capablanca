@@ -1,12 +1,15 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $ionicModal, $ionicPopup, $jrCrop, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $cordovaCapture, $ionicPopup, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
   $scope.showLoadingSpinner = false;
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
     console.log($scope.book);
     $scope.pages = $scope.book.pages;
+    // for (var i = 0; i < $scope.pages.length; i++) {
+    //   $scope.pages[i].data = JSON.parse($scope.pages[i].data);
+    // }
   })
   .error(function(err){
     console.log(err);
@@ -25,7 +28,7 @@ angular.module('Capablanca.controllers')
       transformRequest: function(obj) {
         var str = [];
         for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
       }
     })
@@ -40,9 +43,28 @@ angular.module('Capablanca.controllers')
     });
   }
 
+  $scope.customParseJSON = function(data) {
+    return JSON.parse(data).keywords[0];
+  }
+
+  $scope.captureAudio = function() {
+    var options = { limit: 1, duration: 10 };
+
+    $cordovaCapture.captureAudio(options).then(function(audioData) {
+      // Success! Audio data is here
+      console.log(audioData);
+    }, function(err) {
+      // An error occurred. Show a message to the user
+    });
+  }
+
   $scope.createPage = function(data) {
     DataService.insertPage(JSON.stringify(data), $stateParams.id)
     .success(function(data){
+      if ($scope.pages && $scope.pages.length > 0)
+        $scope.pages.unshift(data);
+      else
+        $scope.pages = [data];
       console.log("inserted" + data);
     })
     .error(function(err) {
@@ -64,6 +86,7 @@ angular.module('Capablanca.controllers')
 
   $scope.selectPage = function(page){
     $scope.pageData = page.data;
+    $scope.pageData = JSON.parse($scope.pageData);
     $scope.pageModal.show();
   }
 
@@ -85,43 +108,43 @@ angular.module('Capablanca.controllers')
         //     height: 800,
         //     title: 'Move and Scale'
         // });
-      }
+}
+}
+
+var buttons = [
+{ text: 'Take Photo' },
+{ text: 'Choose from Library' }
+];
+
+var hideSheet = $ionicActionSheet.show({
+  buttons: buttons,
+  titleText: 'Upload Photo',
+  cancelText: 'Cancel',
+  cancel: function() {
+  },
+  buttonClicked: function(index) {
+    if(index == 0){
+      PhotosService.takePhoto()
+      .success(function(data) {
+        processPhoto(data, "base64");
+        hideSheet();
+      }).error(function(data) {
+      });
     }
-
-    var buttons = [
-    { text: 'Take Photo' },
-    { text: 'Choose from Library' }
-    ];
-
-    var hideSheet = $ionicActionSheet.show({
-      buttons: buttons,
-      titleText: 'Upload Photo',
-      cancelText: 'Cancel',
-      cancel: function() {
-      },
-      buttonClicked: function(index) {
-        if(index == 0){
-          PhotosService.takePhoto()
-          .success(function(data) {
-            processPhoto(data, "base64");
-            hideSheet();
-          }).error(function(data) {
-          });
-        }
-        else if(index == 1){
-          PhotosService.selectPhoto()
-          .success(function(data){
-            processPhoto(data, "image");
-            hideSheet();
-          }).error(function(data) {
-          });
-        }
-      }
-    });
+    else if(index == 1){
+      PhotosService.selectPhoto()
+      .success(function(data){
+        processPhoto(data, "image");
+        hideSheet();
+      }).error(function(data) {
+      });
+    }
   }
+});
+}
 
-  $scope.showPopup = function() {
-    $scope.data = {}
+$scope.showPopup = function() {
+  $scope.data = {}
     // An elaborate, custom popup
     $scope.popup = $ionicPopup.show({
       template: '<ion-spinner class="spinner-energized c-spinner" ng-show="showLoadingSpinner"></ion-spinner>',
