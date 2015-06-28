@@ -1,6 +1,6 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $cordovaCapture, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $cordovaCapture, $ionicPopup, $ionicActionSheet, $ionicModal, $jrCrop, $http, PhotosService, DataService, BooksService){
   $scope.showLoadingSpinner = false;
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
