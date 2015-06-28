@@ -49,20 +49,12 @@ angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capab
   });
 })
 
-.run(function($ionicPlatform, DataService) {
+.run(function($ionicPlatform, $rootScope, DataService) {
   $ionicPlatform.ready(function() {
-    DataService.initialize();
-
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
-
-
+    DataService.initialize()
+    .success(function(data){
+      $rootScope.$broadcast('databaseInitialized', {status: "success"});
+    });
   });
 });
 

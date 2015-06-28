@@ -1,11 +1,7 @@
 angular.module('Capablanca.controllers')
 
-<<<<<<< HEAD
 .controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books, PhotosService, DataService){
   $scope.showText = "Hello World";
-=======
-.controller('BaseController', function($scope, $ionicModal, Books, DataService){
->>>>>>> 61d745b1eb06a7a2696778b64950cda2448b7910
 
   // ionic modal
   $ionicModal.fromTemplateUrl('templates/newBook.html', {
@@ -39,4 +35,14 @@ angular.module('Capablanca.controllers')
   $scope.data = {title: "", description: ""};
 
   $scope.books = Books.all();
+
+  $scope.$on('databaseInitialized', function(event, args) {
+    DataService.getBook()
+    .success(function(data){
+      console.log(data);
+    })
+    .error(function(err){
+      console.log(err);
+    })
+  });
 });
