@@ -1,10 +1,10 @@
 angular.module('Capablanca.controllers')
 
 .controller('BooksController', function($scope, $stateParams, $ionicActionSheet, PhotosService, DataService, BooksService){
-  BooksService.get($stateParams.id)
+  BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
-    console.log(data);
     $scope.book = data;
+    console.log($scope.book);
   });
 
   $scope.uploadPhoto = function(){
@@ -21,8 +21,8 @@ angular.module('Capablanca.controllers')
     }
 
     var buttons = [
-      { text: 'Take Photo' },
-      { text: 'Choose from Library' }
+    { text: 'Take Photo' },
+    { text: 'Choose from Library' }
     ];
 
     var hideSheet = $ionicActionSheet.show({
