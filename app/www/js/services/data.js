@@ -74,15 +74,32 @@ angular.module('Capablanca.services')
       }
 
       $cordovaSQLite.execute(db, query, []).then(function(res) {
-        var data = [];
+        var bookData = [];
         for(var i = 0; i < res.rows.length; i++){
-          data.push({
+          query = "SELECT * FROM PAGES where book = " + res.rows.item(i).id;
+
+          var pageData = [];
+          $cordovaSQLite.execute(db, query, []).then(function(resTwo) {
+            for(var j = 0; i < resTwo.rows.length; j++){
+              pageData.push({
+                id: resTwo.rows.item(j).id,
+                data: resTwo.rows.item(j).data,
+                book: resTwo.rows.item(j).book
+              });
+            }
+          }, function (err) {
+            deferred.reject(err);
+          });
+
+          bookData.push({
             id: res.rows.item(i).id,
             title: res.rows.item(i).title,
-            description: res.rows.item(i).description
+            description: res.rows.item(i).description,
+            pages: pageData
           });
         }
-        deferred.resolve(data);
+        console.log(bookData);
+        deferred.resolve(bookData);
       }, function(err){
         deferred.reject(err);
       });
@@ -121,7 +138,29 @@ angular.module('Capablanca.services')
         return promise;
       }
       return promise;
-    }
+    },
 
-  };
+    insertPage: function(data, book){
+      var deferred = $q.defer();
+      var promise = deferred.promise;
+
+      var query = "INSERT INTO pages (data, book) VALUES (?,?)";
+
+      $cordovaSQLite.execute(db, query, [data, book]).then(function(res) {
+        deferred.resolve(res);
+      }, function (err) {
+        deferred.reject(err);
+      });
+
+      promise.success = function(fn) {
+        promise.then(fn);
+        return promise;
+      }
+      promise.error = function(fn) {
+        promise.then(null, fn);
+        return promise;
+      }
+      return promise;
+    }
+  }
 })
