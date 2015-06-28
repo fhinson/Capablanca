@@ -14,7 +14,7 @@
     <h1 class="section-label">Pages</h1>
     <div class="row book-row">
       <div class="col col-50" ng-repeat="page in pages.slice().reverse()">
-        <div ng-click="">
+        <div ng-click="selectPage()">
           <div class="card book-card">
             <div class="item item-text-wrap" ng-bind="page.data.title">
             </div>
@@ -22,15 +22,5 @@
         </div>
       </div>
     </div>
-    <h4>Keywords</h4>
-    <p ng-repeat="keyword in bookData.keywords" ng-bind="keyword"></p>
-    <h4>Summary</h4>
-    <p ng-bind="bookData.summary[0].sentence"></p>
-    <h4>Text</h4>
-    <p ng-bind="bookData.text"></p>
-    <h4>Sentiment</h4>
-    <p ng-bind="bookData.sentiment"></p>
-    <h4>Sentiment Score</h4>
-    <p ng-bind="bookData.sentiment_score"></p>
   </ion-content>
 </ion-view>
