@@ -19,7 +19,7 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createBook = function() {
-    $scope.books.push({title: $scope.data.title, description: $scope.data.description});
+    $scope.books << {title: $scope.data.title, description: $scope.data.description};
     DataService.insertBook($scope.data.title, $scope.data.description)
     .success(function(){
       console.log("successfully inserted");
@@ -36,6 +36,9 @@ angular.module('Capablanca.controllers')
 
 
   $scope.$on('databaseInitialized', function(event, args) {
-    $scope.books = BooksService.all();
+    BooksService.all()
+    .success(function(data) {
+      $scope.books = data;
+    });
   });
 });

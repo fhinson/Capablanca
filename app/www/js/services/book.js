@@ -3,11 +3,13 @@ angular.module('Capablanca.services')
 .factory('BooksService', function(DataService) {
    return {
     all: function() {
-      return DataService.getBook();
+      var books = DataService.getBook();
+      return books;
     },
 
     get: function(id) {
-      return DataService.getBook(id);
+      var book = DataService.getBook(id);
+      return book;
     }
   }
 })

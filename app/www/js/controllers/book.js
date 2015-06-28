@@ -1,7 +1,11 @@
 angular.module('Capablanca.controllers')
 
 .controller('BooksController', function($scope, $stateParams, $ionicActionSheet, PhotosService, DataService, BooksService){
-  $scope.book = BooksService.get($stateParams.id)
+  BooksService.get($stateParams.id)
+  .success(function(data) {
+    console.log(data);
+    $scope.book = data;
+  });
 
   $scope.uploadPhoto = function(){
     var processPhoto = function(data, dataType){
