@@ -18,10 +18,10 @@ angular.module('Capablanca.services')
       db = $cordovaSQLite.openDB("capablanca.db");
       var query;
 
-      query = "CREATE TABLE IF NOT EXISTS books (id integer primary key, title string, description text, timestamp date default (datetime('now','localtime')))"
+      query = "CREATE TABLE IF NOT EXISTS books (id integer primary key, title string, description text, timestamp date default (datetime('now','localtime')))";
       $cordovaSQLite.execute(db, query)
       .then(function(res){
-        query = "CREATE TABLE IF NOT EXISTS pages (id integer primary key, data text, book integer, FOREIGN KEY(book) REFERENCES book(id), timestamp date default (datetime('now','localtime')))"
+        query = "CREATE TABLE IF NOT EXISTS pages (id integer primary key, data text, book integer, FOREIGN KEY(book) REFERENCES book(id), timestamp date default (datetime('now','localtime')))";
         $cordovaSQLite.execute(db, query)
         .then(function(res){
           deferred.resolve(res);
@@ -74,7 +74,15 @@ angular.module('Capablanca.services')
       }
 
       $cordovaSQLite.execute(db, query, []).then(function(res) {
-        deferred.resolve(res);
+        var data = [];
+        for(var i = 0; i < res.rows.length; i++){
+          data.push({
+            id: res.rows.item(i).id,
+            title: res.rows.item(i).title,
+            description: res.rows.item(i).description
+          });
+        }
+        deferred.resolve(data);
       }, function(err){
         deferred.reject(err);
       });

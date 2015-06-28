@@ -19,7 +19,6 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createBook = function() {
-    $scope.books.unshift({title: $scope.data.title, description: $scope.data.description});
     DataService.insertBook($scope.data.title, $scope.data.description)
     .success(function(){
       console.log("successfully inserted");
@@ -34,4 +33,14 @@ angular.module('Capablanca.controllers')
   $scope.data = {title: "", description: ""};
 
   $scope.books = BooksService.all();
+
+  $scope.$on('databaseInitialized', function(event, args) {
+    DataService.getBook()
+    .success(function(data){
+      console.log(data);
+    })
+    .error(function(err){
+      console.log(err);
+    })
+  });
 });
