@@ -161,45 +161,60 @@ class ImagesController < ApplicationController
 
   def opencv_crop(img)
     cvmat = OpenCV::CvMat.load(img)
+    img_size = cvmat.dims.inject(:*)
     cvmat = cvmat.BGR2GRAY
     canny = cvmat.canny(100,200)
-    contour = canny.find_contours(mode: OpenCV::CV_RETR_LIST,
+    median_filter = canny.smooth(OpenCV::CV_MEDIAN)
+    kernel = OpenCV::IplConvKernel.new(5, 5, 0, 0, :rect)
+    dilation = median_filter.dilate(kernel, 7)
+    contour = dilation.find_contours(mode: OpenCV::CV_RETR_LIST,
       method: OpenCV::CV_CHAIN_APPROX_SIMPLE)
 
+    contours = []
     while contour
-      # No "holes" please (aka. internal contours)
-      unless contour.hole?
-
-        puts '-' * 80
-        puts "BOUNDING RECT FOUND"
-        puts '-' * 80
-
-        # You can detect the "bounding rectangle" which is always oriented horizontally and vertically
-        box = contour.bounding_rect
-        puts "found external contour with bounding rectangle from #{box.top_left.x},#{box.top_left.y} to #{box.bottom_right.x},#{box.bottom_right.y}"
-
-        # The contour area can be computed:
-        puts "that contour encloses an area of #{contour.contour_area} square pixels"
-
-        # .. as can be the length of the contour
-        puts "that contour is #{contour.arc_length} pixels long "
-
-        # Draw that bounding rectangle
-        cvmat.rectangle! box.top_left, box.bottom_right, color: OpenCV::CvColor::Black
-
-        # You can also detect the "minimal rectangle" which has an angle, width, height and center coordinates
-        # and is not neccessarily horizonally or vertically aligned.
-        # The corner of the rectangle with the lowest y and x position is the anchor (see image here: http://bit.ly/lT1XvB)
-        # The zero angle position is always straight up.
-        # Positive angle values are clockwise and negative values counter clockwise (so -60 means 60 degree counter clockwise)
-        box = contour.min_area_rect2
-        puts "found minimal rectangle with its center at (#{box.center.x.round},#{box.center.y.round}), width of #{box.size.width.round}px, height of #{box.size.height.round} and an angle of #{box.angle.round} degree"
-      end
+      contours << contour unless contour.hole?
       contour = contour.h_next
     end
 
+    contours = contours.sort{|a,b| b.contour_area <=> a.contour_area }
+    total_contour_area = 0
+    contours.each{|c| total_contour_area += c.contour_area }
+
+    bounding_box = contours[0].bounding_rect
+    sum_contour_area = contours[0].contour_area
+    recall = sum_contour_area / total_contour_area
+    precision = (img_size - sum_contour_area) / img_size
+    f1s = []
+    f1s[0] = 2 * recall * precision / (recall + precision)
+
+    contours.each_with_index do |contour, i|
+      next if i == 0
+      sum_contour_area += contour.contour_area
+      recall = sum_contour_area / total_contour_area
+      precision = (img_size - sum_contour_area) / img_size
+      f1s[i] = 2 * recall * precision / (recall + precision)
+      break if f1s[i] < f1s[i - 1]
+
+      next_box = contour.bounding_rect
+      if next_box.x < bounding_box.x
+        bounding_box.width = bounding_box.width + bounding_box.x - next_box.x
+        bounding_box.x = next_box.x
+      end
+      if next_box.y < bounding_box.y
+        bounding_box.height = bounding_box.height + bounding_box.y - next_box.y
+        bounding_box.y = next_box.y
+      end
+      if next_box.x + next_box.width > bounding_box.x + bounding_box.width
+        bounding_box.width = next_box.x + next_box.width - bounding_box.x
+      end
+      if next_box.y + next_box.height > bounding_box.x + bounding_box.height
+        bounding_box.height = next_box.y + next_box.height - bounding_box.y
+      end
+    end
+
+    cvmat = cvmat.sub_rect(bounding_box)
+
     # And save the image
-    puts "\nSaving image with bounding rectangles"
-    cvmat.save_image("app/assets/images/rect_image.png")
+    cvmat.save_image("app/assets/images/image.png")
   end
 end
