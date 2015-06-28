@@ -25,7 +25,7 @@ angular.module('Capablanca.controllers')
       transformRequest: function(obj) {
         var str = [];
         for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
         return str.join("&");
       }
     })
@@ -54,6 +54,10 @@ angular.module('Capablanca.controllers')
   $scope.createPage = function(data) {
     DataService.insertPage(JSON.stringify(data), $stateParams.id)
     .success(function(data){
+      if ($scope.pages && $scope.pages.length > 0)
+        $scope.pages.unshift(data);
+      else
+        $scope.pages = [data];
       console.log("inserted" + data);
     })
     .error(function(err) {
@@ -96,43 +100,43 @@ angular.module('Capablanca.controllers')
         //     height: 800,
         //     title: 'Move and Scale'
         // });
-      }
+}
+}
+
+var buttons = [
+{ text: 'Take Photo' },
+{ text: 'Choose from Library' }
+];
+
+var hideSheet = $ionicActionSheet.show({
+  buttons: buttons,
+  titleText: 'Upload Photo',
+  cancelText: 'Cancel',
+  cancel: function() {
+  },
+  buttonClicked: function(index) {
+    if(index == 0){
+      PhotosService.takePhoto()
+      .success(function(data) {
+        processPhoto(data, "base64");
+        hideSheet();
+      }).error(function(data) {
+      });
     }
-
-    var buttons = [
-    { text: 'Take Photo' },
-    { text: 'Choose from Library' }
-    ];
-
-    var hideSheet = $ionicActionSheet.show({
-      buttons: buttons,
-      titleText: 'Upload Photo',
-      cancelText: 'Cancel',
-      cancel: function() {
-      },
-      buttonClicked: function(index) {
-        if(index == 0){
-          PhotosService.takePhoto()
-          .success(function(data) {
-            processPhoto(data, "base64");
-            hideSheet();
-          }).error(function(data) {
-          });
-        }
-        else if(index == 1){
-          PhotosService.selectPhoto()
-          .success(function(data){
-            processPhoto(data, "image");
-            hideSheet();
-          }).error(function(data) {
-          });
-        }
-      }
-    });
+    else if(index == 1){
+      PhotosService.selectPhoto()
+      .success(function(data){
+        processPhoto(data, "image");
+        hideSheet();
+      }).error(function(data) {
+      });
+    }
   }
+});
+}
 
-  $scope.showPopup = function() {
-    $scope.data = {}
+$scope.showPopup = function() {
+  $scope.data = {}
     // An elaborate, custom popup
     $scope.popup = $ionicPopup.show({
       template: '<ion-spinner class="spinner-energized c-spinner" ng-show="showLoadingSpinner"></ion-spinner>',
