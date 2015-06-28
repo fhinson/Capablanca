@@ -1,0 +1,23 @@
+<ion-modal-view>
+  <ion-header-bar id="new-book-header">
+    <h1>New Book</h1>
+    <div class="close-settings" ng-click="closeNewBook()">
+      <button class="button button-positive">
+        Cancel
+      </button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form>
+      <ion-item class="item item-input">
+        <input type="text" placeholder="Title" ng-model="data.title">
+      </ion-item>
+      <ion-item class="item item-input">
+        <input type="text" placeholder="Description" ng-model="data.description">
+      </ion-item>
+      <button class="button button-positive" type="submit" ng-click="createBook()">
+        Create Book
+      </button>
+    </form>
+  </ion-content>
+</ion-modal-view>
