@@ -21,7 +21,7 @@ angular.module('ionic.utils', [])
   }
 }]);
 
-angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.controllers', 'Capablanca.services',
+angular.module('Capablanca', ['ionic', 'ngCordova', 'ionic.service.core', 'Capablanca.controllers', 'Capablanca.services',
   'Capablanca.filters', 'Capablanca.directives'])
 
 .config(function($stateProvider, $urlRouterProvider, $httpProvider, $ionicAppProvider){
@@ -34,6 +34,13 @@ angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.control
     controller: 'BaseController'
   })
 
+  $stateProvider
+  .state('books', {
+    url: '/books/:id',
+    templateUrl: 'templates/book.html',
+    controller: 'BooksController'
+  })
+
   $ionicAppProvider.identify({
     // The App ID for the server
     app_id: 'b4aa294a',
@@ -42,16 +49,15 @@ angular.module('Capablanca', ['ionic', 'ionic.service.core', 'Capablanca.control
   });
 })
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope, DataService) {
   $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if(window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-    }
-    if(window.StatusBar) {
-      StatusBar.styleDefault();
-    }
+    DataService.initialize()
+    .success(function(data){
+      $rootScope.$broadcast('databaseInitialized', {status: "success"});
+    })
+    .error(function(err){
+      console.log(err);
+    })
   });
 });
 
