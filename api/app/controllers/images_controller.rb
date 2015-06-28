@@ -64,12 +64,13 @@ class ImagesController < ApplicationController
       text = gingerice_engine.parse(text)['result']
       words = text.split(' ')
       words.each_with_index do |word, i|
+        next if word =~ /['-]/
         w = word.gsub(/[0-9.!?,'-]/, '')
-        if w != (c = correct(word))
-          words[i] = c
-        end
+        c = correct(word)
+        words[i] = c if w.downcase != c
+        words[i] = '' if w == ''
       end
-      text = words.join(' ')
+      text = words.join(' ').gsub(/ +/, ' ')
     end
 
     # create a summary with OTS
