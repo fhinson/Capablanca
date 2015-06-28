@@ -1,12 +1,32 @@
+require 'opencv'
+include OpenCV
+require 'tesseract'
+require 'ots'
+
 class ImagesController < ApplicationController
   def analyze
-    require 'tesseract'
+    png = nil
+    if params[:image]
+      data = params[:image]
+      if data.include?('data:image')
+        data = data[data.index(',') + 1 .. -1]
+      end
+      png = Base64.decode64(data)
+    else
+      png = 'app/assets/images/sample4.png'
+    end
+
+    # do opencv pre-processing
 
     engine = Tesseract::Engine.new {|e|
       e.language  = :eng
       e.blacklist = '|'
     }
 
-    render json:  engine.text_for('app/assets/images/sample-1.jpg').strip
+    parser = Gingerice::Parser.new
+    text = parser.parse(engine.text_for(png).strip.gsub("\n", " "))['result']
+    summarizer = OTS.parse(text)
+
+    render json: {text: text, summary: summarizer.summarize(percent: 50)}
   end
 end
