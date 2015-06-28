@@ -24,8 +24,8 @@ angular.module('Capablanca.controllers')
       }
     })
     .success(function(data){
-      console.log(data.text);
-      $scope.showData = data.text;
+      console.log(data);
+      $scope.bookData = data;
     })
     .error(function(data, status, headers, config){
       console.log(data);

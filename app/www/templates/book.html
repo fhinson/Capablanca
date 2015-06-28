@@ -12,6 +12,13 @@
         {{page.data.title}}
       </ion-item>
     </ion-list>
-  <p ng-bind="showData"></p>
+    <h4>Summary</h4>
+    <p ng-bind="bookData.summary"></p>
+    <h4>Text</h4>
+    <p ng-bind="bookData.text"></p>
+    <h4>Sentiment</h4>
+    <p ng-bind="bookData.sentiment"></p>
+    <h4>Sentiment Score</h4>
+    <p ng-bind="bookData.sentiment_score"></p>
   </ion-content>
 </ion-view>
