@@ -12,8 +12,10 @@
         {{page.data.title}}
       </ion-item>
     </ion-list>
+    <h4>Keywords</h4>
+    <p ng-repeat="keyword in bookData.keywords" ng-bind="keyword"></p>
     <h4>Summary</h4>
-    <p ng-bind="bookData.summary"></p>
+    <p ng-bind="bookData.summary[0].sentence"></p>
     <h4>Text</h4>
     <p ng-bind="bookData.text"></p>
     <h4>Sentiment</h4>
