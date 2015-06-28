@@ -25,6 +25,7 @@ angular.module('Capablanca.controllers')
     })
     .success(function(data){
       console.log(data.text);
+      console.log(data.summary);
       $scope.showData = data.text;
     })
     .error(function(data, status, headers, config){
