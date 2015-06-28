@@ -158,6 +158,7 @@ class ImagesController < ApplicationController
     cvmat = OpenCV::CvMat.load(img)
     cvmat = cvmat.BGR2GRAY
     canny = cvmat.canny(100,200)
+    canny.save_image("app/assets/images/rect_image.png")
     contour = canny.find_contours(:mode => OpenCV::CV_RETR_LIST, :method => OpenCV::CV_CHAIN_APPROX_SIMPLE)
 
     while contour
@@ -194,6 +195,6 @@ class ImagesController < ApplicationController
 
     # And save the image
     puts "\nSaving image with bounding rectangles"
-    cvmat.save_image("rect_image.png")
+    #cvmat.save_image("app/assets/images/rect_image.png")
   end
 end
