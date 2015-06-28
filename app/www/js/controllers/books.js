@@ -1,12 +1,11 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $http, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $jrCrop, $http, PhotosService, DataService, BooksService){
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
     $scope.pages = $scope.book.pages;
-    $scope.createPage({title: "yayo"});
-    $scope.createPage({title: "ohai"});
+    console.log($scope.pages);
   });
 
   function postImageData(data){
@@ -24,7 +23,8 @@ angular.module('Capablanca.controllers')
       }
     })
     .success(function(data){
-      console.log(data);
+      $scope.bookData = data;
+      $scope.createPage($scope.bookData);
     })
     .error(function(data, status, headers, config){
       console.log(data);
@@ -32,8 +32,13 @@ angular.module('Capablanca.controllers')
   }
 
   $scope.createPage = function(data) {
-    DataService.insertPage(data, $stateParams.id);
-    console.log("inserted");
+    DataService.insertPage(data, $stateParams.id)
+    .success(function(data){
+      console.log("inserted" + data);
+    })
+    .error(function(err) {
+      console.log("error " + err);
+    });
   }
 
   $scope.uploadPhoto = function(){
@@ -46,6 +51,14 @@ angular.module('Capablanca.controllers')
       }
       else if(dataType == "base64"){
         postImageData(data);
+        // var image = new Image();
+        // image.src = "data:image/jpeg;base64," + data;
+        // $jrCrop.crop({
+        //     url: image,
+        //     width: 800,
+        //     height: 800,
+        //     title: 'Move and Scale'
+        // });
       }
     }
 

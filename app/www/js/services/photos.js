@@ -1,7 +1,7 @@
 angular.module('Capablanca.services')
 
 // service for taking pictures and getting pictures from library
-.service('PhotosService', function($q, $cordovaCamera, $cordovaImagePicker){
+.service('PhotosService', function($q, $cordovaCamera, $cordovaImagePicker, $jrCrop){
   return {
     takePhoto: function(){
       var deferred = $q.defer();
@@ -12,10 +12,10 @@ angular.module('Capablanca.services')
           quality: 100,
           destinationType: Camera.DestinationType.DATA_URL,
           sourceType: Camera.PictureSourceType.CAMERA,
-          allowEdit: true,
+          allowEdit: false,
           encodingType: Camera.EncodingType.JPEG,
-          targetWidth: 800,
-          targetHeight: 800,
+          targetWidth: 1920,
+          targetHeight: 1080,
           popoverOptions: CameraPopoverOptions,
           saveToPhotoAlbum: false
         };

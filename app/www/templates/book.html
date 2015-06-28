@@ -9,8 +9,18 @@
     {{book.description}}
     <ion-list>
       <ion-item ng-repeat="page in pages.slice().reverse()">
-        {{page.data.title}}
+        {{page.data.sentiment}}
       </ion-item>
     </ion-list>
+    <h4>Keywords</h4>
+    <p ng-repeat="keyword in bookData.keywords" ng-bind="keyword"></p>
+    <h4>Summary</h4>
+    <p ng-bind="bookData.summary[0].sentence"></p>
+    <h4>Text</h4>
+    <p ng-bind="bookData.text"></p>
+    <h4>Sentiment</h4>
+    <p ng-bind="bookData.sentiment"></p>
+    <h4>Sentiment Score</h4>
+    <p ng-bind="bookData.sentiment_score"></p>
   </ion-content>
 </ion-view>
