@@ -1,22 +1,51 @@
 angular.module('Capablanca.controllers')
 
-.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, PhotosService, DataService, BooksService){
+.controller('BooksController', function($scope, $stateParams, $ionicActionSheet, $http, PhotosService, DataService, BooksService){
   BooksService.get(parseInt($stateParams.id))
   .success(function(data) {
     $scope.book = data;
-    console.log($scope.book);
+    $scope.pages = $scope.book.pages;
+    $scope.createPage({title: "yayo"});
+    $scope.createPage({title: "ohai"});
   });
+
+  function postImageData(data){
+    $http({
+      method: 'POST',
+      url: 'http://c413542d.ngrok.io/analyze',
+      data: {image:data},
+      // headers: {'Content-Type': 'multipart/form-data'},
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      }
+    })
+    .success(function(data){
+      console.log(data);
+    })
+    .error(function(data, status, headers, config){
+      console.log(data);
+    });
+  }
+
+  $scope.createPage = function(data) {
+    DataService.insertPage(data, $stateParams.id);
+    console.log("inserted");
+  }
 
   $scope.uploadPhoto = function(){
     var processPhoto = function(data, dataType){
       if(dataType == "image"){
         $scope.user.avatar = data.toString();
         PhotosService.convertImgToBase64(data, function(imgData){
-          console.log(imgData.split(",")[1]);
+          postImageData(imgData.split(",")[1]);
         });
       }
       else if(dataType == "base64"){
-        console.log("data:image/jpeg;base64," + data);
+        postImageData(data);
       }
     }
 

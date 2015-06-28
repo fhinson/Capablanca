@@ -7,5 +7,10 @@
   <ion-content>
     <button ng-click="uploadPhoto()">Upload Photo</button>
     {{book.description}}
+    <ion-list>
+      <ion-item ng-repeat="page in pages.slice().reverse()">
+        {{page.data.title}}
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
