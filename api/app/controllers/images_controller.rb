@@ -23,12 +23,13 @@ class ImagesController < ApplicationController
       return
     end
     language = params[:language] || 'english'
+    fast = params[:fast] == 'true'
 
     # grab image from base64 or local filename
-    img = get_image(params)
+    img = get_image(params, fast)
 
     # do opencv pre-processing
-    opencv_crop(img)
+    opencv_crop(img) if !fast
 
     # set variables used in tesseract processing
     text = ''
@@ -62,15 +63,17 @@ class ImagesController < ApplicationController
       # correct spelling/grammar with gingerice and custom spell_check
       text = (' ' + text + ' ').gsub(/ [^iIaA.!?,'-] /, ' ')
       text = gingerice_engine.parse(text)['result']
-      words = text.split(' ')
-      words.each_with_index do |word, i|
-        next if word =~ /['-]/
-        w = word.gsub(/[0-9.!?,'-]/, '')
-        c = correct(word)
-        words[i] = c if w.downcase != c
-        words[i] = '' if w == ''
+      if !fast
+        words = text.split(' ')
+        words.each_with_index do |word, i|
+          next if word =~ /['-]/
+          w = word.gsub(/[0-9.!?,'-]/, '')
+          c = correct(word)
+          words[i] = c if w.downcase != c
+          words[i] = '' if w == ''
+        end
+        text = words.join(' ').gsub(/ +/, ' ')
       end
-      text = words.join(' ').gsub(/ +/, ' ')
     end
 
     # create a summary with OTS
@@ -90,7 +93,7 @@ class ImagesController < ApplicationController
 
   private
 
-  def get_image(params)
+  def get_image(params, fast)
     filename = nil
     if params[:image]
       data = params[:image].strip
@@ -98,6 +101,7 @@ class ImagesController < ApplicationController
         data = data[data.index(',') + 1 .. -1]
       end
       png = Base64.decode64(data)
+      return png if fast
       filename = 'app/assets/images/image.png'
       File.open(filename, 'wb') do |f|
         f.write(png)
@@ -158,7 +162,6 @@ class ImagesController < ApplicationController
     cvmat = OpenCV::CvMat.load(img)
     cvmat = cvmat.BGR2GRAY
     canny = cvmat.canny(100,200)
-    canny.save_image("app/assets/images/rect_image.png")
     contour = canny.find_contours(:mode => OpenCV::CV_RETR_LIST, :method => OpenCV::CV_CHAIN_APPROX_SIMPLE)
 
     while contour
@@ -195,6 +198,6 @@ class ImagesController < ApplicationController
 
     # And save the image
     puts "\nSaving image with bounding rectangles"
-    #cvmat.save_image("app/assets/images/rect_image.png")
+    cvmat.save_image("app/assets/images/rect_image.png")
   end
 end
