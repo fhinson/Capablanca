@@ -1,7 +1,10 @@
-<ion-view view-title="{{book.title}}" can-swipe-back="true">
+<ion-view view-title="{{book.title}}">
   <ion-nav-bar>
     <ion-nav-back-button>
     </ion-nav-back-button>
   </ion-nav-bar>
   {{book.title}}
+  <ion-content>
+    <button ng-click="uploadPhoto()">Upload Photo</button>
+  </ion-content>
 </ion-view>
