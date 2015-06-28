@@ -5,8 +5,6 @@ angular.module('Capablanca.controllers')
   .success(function(data) {
     $scope.book = data;
     $scope.pages = $scope.book.pages;
-    $scope.createPage({title: "yayo"});
-    $scope.createPage({title: "ohai"});
   });
 
   function postImageData(data){
