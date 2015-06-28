@@ -1,11 +1,6 @@
 angular.module('Capablanca.controllers')
 
-<<<<<<< HEAD
-.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, Books, PhotosService, DataService){
-  $scope.showText = "Hello World";
-=======
-.controller('BaseController', function($scope, $ionicModal, Books, DataService){
->>>>>>> 61d745b1eb06a7a2696778b64950cda2448b7910
+.controller('BaseController', function($scope, $ionicActionSheet, $ionicModal, BooksService, PhotosService, DataService){
 
   // ionic modal
   $ionicModal.fromTemplateUrl('templates/newBook.html', {
@@ -38,5 +33,5 @@ angular.module('Capablanca.controllers')
   $scope.showText = "Ayyy this is where your books go";
   $scope.data = {title: "", description: ""};
 
-  $scope.books = Books.all();
+  $scope.books = BooksService.all();
 });
