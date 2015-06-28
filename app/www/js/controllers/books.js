@@ -79,6 +79,7 @@ angular.module('Capablanca.controllers')
 
   $scope.selectPage = function(page){
     $scope.pageData = page.data;
+    $scope.pageData = JSON.parse($scope.pageData);
     $scope.pageModal.show();
   }
 
